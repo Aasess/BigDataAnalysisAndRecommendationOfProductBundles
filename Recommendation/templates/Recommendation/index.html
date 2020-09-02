@@ -55,9 +55,76 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <h2>Basket</h2>
+
+                <ul>
+                {% for item in basket %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+                </ul> 
+                <form method="post" action="/reset-basket/">
+                    <button type="submit">Reset basket</button>
+                </form>
+
+                <h2>Recommendations</h2>
+
+                <form method="post">
+                    <ul>
+                    {% for item in recommendations %}
+                        <li>
+                            <input type="checkbox" id="item-{{ item }}" name="items" value="{{ item }}" />
+                            <label for="items">{{ item }}</label>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    {% if recommendations %}
+                    <button type="submit">Add to basket</button>
+                    {% endif %}
+                </form>
 
 
-        <!-- custom js-->
+                <h2>Items available</h2>
+
+                <form method="post">
+                    <button type="submit">Add to basket</button>
+                    <ul>
+                    {% for item in items %}
+                        <li>
+                            <input type="checkbox" id="item-{{ item }}" name="items" value="{{ item }}" />
+                            <label for="items">{{ item }}</label>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </form>
+            </div>
+
+            <div class="col-5">
+                Top Products Bundles
+                <hr>
+                <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Bundle</th>
+                    <th scope="col">Frequency</th>
+                    </tr>
+                </thead>
+                 <tbody>
+                 {% for i,bundle in zippedBundles %}
+                     <tr>
+                    <th scope="row">{{ i }}</th>
+                    <td>{{ bundle.firstproduct }} + {{ bundle.secondproduct }}</td>
+                    <td class="text-right">{{ bundle.frequency }}</td>
+                    </tr>
+                 {% endfor %}
+                </tbody>
+            </div>
+        </div>
+    </div>
+    <!-- custom js-->
     <script src="{% static 'app.js' %}"></script>
 </body>
 </html>
