@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Instacart</title>
+    <!--font-->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!--bootstrap4 cdn-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!--custom css-->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <!-- As a link -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'homepage' %}"><img src="https://d2guulkeunn7d8.cloudfront.net/assets/beetstrap/brand/logo@3x-c01b12eeb889d8665611740b281d76fa1cf88d06bcbd8a50dbcae6baecdbe9da.png" height=45 width=130></a>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link pr-3" href="#">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link pl-3" href="#">Log In</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="jumbotron pb-0 pt-4">
+        <div class="container">
+            <h2 class="display-4">Instacart Market Basket Analysis</h2>
+            <p class="text-secondary">Instacart is a same-day grocery delivery service that can save yourself that trip to the market.</p>
+            <hr class="mt-4">
+
+            <div class="row mt-5">
+                <div class="col-5 mt-4">
+                    <p class="alert alert-primary mb-4"><span class="ml-4">Total No. of Orders:</span> <strong class="ml-5 pl-5">3.2 Millions</strong></p>
+                    <p class="alert alert-primary mb-4"><span class="ml-4">Total No. of Users:</span> <strong class="ml-5 pl-5"> 206,209</strong></p>
+                    <p class="alert alert-primary mb-4"><span class="ml-4">Total No. of Products:</span> <strong class="ml-5 pl-4"> 49,688</strong></p>
+                </div>
+                <div class="col-7 shadow-lg p-3 mb-5 bg-white rounded">
+                    <p>Search for any products and we will provide the best recommendation for you.</p>
+                    <hr>
+                    <form method="GET">
+                         <div class="form-group">
+                            <label for="formControlRange" class="text-secondary">Select number of recommendations: <output id="rangeoutput">5</output></label>
+                            <input type="range" class="form-control-range" id="range" min="1" max="15" value="5">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control mr-sm-2 " type="search" placeholder="Search for product" aria-label="Search">
+                        </div>
+                        <button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- custom js-->
+    <script src="{% static 'app.js' %}"></script>
+</body>
+</html>
