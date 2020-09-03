@@ -7,6 +7,15 @@ path = settings.BASE_DIR / 'data.json'
 with open(path) as f:
     product_bundles_lists = json.load(f)
 
+#give avialable products randomly
+def availableproducts():
+    random_sample = random.sample(product_bundles_lists.keys(),20)
+    data = []
+    for item in random_sample:
+        if(len(item)<70):
+            data.append(item)
+    return data
+    
 #lets find the top product bundles based on bigram frequency that was saved to data.json
 def topproductbundledetails():
     topproductbundles = []

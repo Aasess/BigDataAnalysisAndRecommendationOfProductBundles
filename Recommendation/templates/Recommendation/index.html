@@ -82,7 +82,7 @@
                 <h2>Recommendations</h2>
 
                 <form method="post">
-                    <ul>
+                    <ul class="nobull">
                     {% for item in recommendations %}
                         <li>
                             <input type="checkbox" id="item-{{ item }}" name="items" value="{{ item }}" />
@@ -91,7 +91,7 @@
                     {% endfor %}
                     </ul>
                     {% if recommendations %}
-                    <button type="submit" class="btn btn-primary">Add to basket</button>
+                        <button type="submit" class="btn btn-lg btn-outline-success mt-2"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
                     {% endif %}
                 </form>
                 <hr>
@@ -99,14 +99,14 @@
                 <h2>Product Available</h2>
 
                 <form method="post">
-                    <button type="submit" class="btn btn-primary">Add to basket</button>
-                    <ul>
+                    <ul class="nobull">
                     {% for item in items %}
                         <li>
                             <input type="checkbox" id="item-{{ item }}" name="items" value="{{ item }}" />
                             <label for="items">{{ item }}</label>
                         </li>
                     {% endfor %}
+                    <button type="submit" class="btn btn-lg btn-outline-success mt-2"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
                     </ul>
                 </form>
             </div>
