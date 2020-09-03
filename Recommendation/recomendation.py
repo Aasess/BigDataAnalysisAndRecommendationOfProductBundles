@@ -1,7 +1,26 @@
 from ProductBundleRecommendation import settings
 import json
 import random
-from .views import product_bundles_lists
+
+#first convert the json file from the path specified to python dict
+path = settings.BASE_DIR / 'data.json'
+with open(path) as f:
+    product_bundles_lists = json.load(f)
+
+#lets find the top product bundles based on bigram frequency that was saved to data.json
+def topproductbundledetails():
+    topproductbundles = []
+    for firstWord in product_bundles_lists:
+        for secondWord in product_bundles_lists[firstWord]:
+            if product_bundles_lists[firstWord][secondWord] > 20:           
+                topproductDict = {
+                    "firstproduct" : firstWord,
+                    "secondproduct" : secondWord,
+                    "frequency" : product_bundles_lists[firstWord][secondWord]
+                }
+                topproductbundles.append(topproductDict)
+    
+    return topproductbundles
 
 def getPureData(prodName):
     
@@ -11,7 +30,7 @@ def getPureData(prodName):
     if prodName not in product_bundles_lists:
         return []
     sortedOringalList = sorted(product_bundles_lists[prodName].items(), key=lambda x: x[1], reverse=True)
-#     print(sortedOringalList)
+    #     print(sortedOringalList)
     data = {}
     for tp in sortedOringalList:
         product = tp[0]
@@ -22,10 +41,10 @@ def getPureData(prodName):
         else:
             productList = [product]
         data[number] = productList
-#     print(data)
-#     print("==> Get pure data name:")
+    #     print(data)
+    #     print("==> Get pure data name:")
     pureData = data.values()
-#     print(pureData)
+    #     print(pureData)
     return list(pureData)
 
 def pickRecommendProds(pureData, numberOfRecommend):
@@ -56,23 +75,23 @@ def getRecommend(name, numberOfRecommend):
     index = 0
 
     while (numberOfRecommend):
-#         print("->Target: ", productName)
-#         print("->numberOfRecommend: ", numberOfRecommend)
-#         print("->Index: ", index)
+    #         print("->Target: ", productName)
+    #         print("->numberOfRecommend: ", numberOfRecommend)
+    #         print("->Index: ", index)
         data = getPureData(productName)
     #     print("Pure data:", data)
         intermediate = pickRecommendProds(data, numberOfRecommend)
         recommendProducts += intermediate
-#         print("Recommend: ", recommendProducts)
-#         print("Recommend: ", recommendProducts)
+    #         print("Recommend: ", recommendProducts)
+    #         print("Recommend: ", recommendProducts)
         if len(intermediate) == 0 and index == len(recommendProducts):
             break
         numberOfRecommend -= len(intermediate)
         if numberOfRecommend > 0:
-#             print("Still left: ", numberOfRecommend)
+    #             print("Still left: ", numberOfRecommend)
             productName = recommendProducts[index]
             index += 1
 
-#         print("==================")
+    #         print("==================")
 
     return recommendProducts

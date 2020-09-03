@@ -14,18 +14,20 @@
 </head>
 <body>
     <!-- As a link -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'homepage' %}"><img src="https://d2guulkeunn7d8.cloudfront.net/assets/beetstrap/brand/logo@3x-c01b12eeb889d8665611740b281d76fa1cf88d06bcbd8a50dbcae6baecdbe9da.png" height=45 width=130></a>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'homepage' %}"><img src="https://d2guulkeunn7d8.cloudfront.net/assets/beetstrap/brand/logo@3x-c01b12eeb889d8665611740b281d76fa1cf88d06bcbd8a50dbcae6baecdbe9da.png" height=45 width=130></a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link pr-3" href="#">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link pl-3" href="#">Log In</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link pr-3" href="#">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link pl-3" href="#">Log In</a>
-            </li>
-        </ul>
-    </nav>
     <div class="jumbotron pb-0 pt-4">
         <div class="container">
             <h2 class="display-4">Instacart Market Basket Analysis</h2>
@@ -65,10 +67,10 @@
                     <li>{{ item }}</li>
                 {% endfor %}
                 </ul> 
-                <form method="post" action="/reset-basket/">
-                    <button type="submit">Reset basket</button>
+                <form method="post">
+                    <button type="submit" class="btn btn-primary">Reset basket</button>
                 </form>
-
+                <hr>
                 <h2>Recommendations</h2>
 
                 <form method="post">
@@ -81,15 +83,15 @@
                     {% endfor %}
                     </ul>
                     {% if recommendations %}
-                    <button type="submit">Add to basket</button>
+                    <button type="submit" class="btn btn-primary">Add to basket</button>
                     {% endif %}
                 </form>
+                <hr>
 
-
-                <h2>Items available</h2>
+                <h2>Product Available</h2>
 
                 <form method="post">
-                    <button type="submit">Add to basket</button>
+                    <button type="submit" class="btn btn-primary">Add to basket</button>
                     <ul>
                     {% for item in items %}
                         <li>
