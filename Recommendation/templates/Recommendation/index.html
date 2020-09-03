@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!--custom css-->
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!--fontawesome-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <!-- As a link -->
@@ -35,23 +37,29 @@
             <hr class="mt-4">
 
             <div class="row mt-5">
-                <div class="col-5 mt-4">
-                    <p class="alert alert-primary mb-4"><span class="ml-4">Total No. of Orders:</span> <strong class="ml-5 pl-5">3.2 Millions</strong></p>
-                    <p class="alert alert-primary mb-4"><span class="ml-4">Total No. of Users:</span> <strong class="ml-5 pl-5"> 206,209</strong></p>
-                    <p class="alert alert-primary mb-4"><span class="ml-4">Total No. of Products:</span> <strong class="ml-5 pl-4"> 49,688</strong></p>
+                <div class="col-5 ">
+                    <p class="alert alert-primary mb-3"><span class="ml-4">Total No. of Orders:</span> <strong class="ml-5 pl-5">3.2 Millions</strong></p>
+                    <p class="alert alert-primary mb-3"><span class="ml-4">Total No. of Users:</span> <strong class="ml-5 pl-5"> 206,209</strong></p>
+                    <p class="alert alert-primary mb-3"><span class="ml-4">Total No. of Products:</span> <strong class="ml-5 pl-4"> 49,688</strong></p>
+                    <p class="alert alert-primary mb-3"><span class="ml-4">Total No. of Rules Generated:</span> <strong class="ml-3 pl-1"> 15,709</strong></p>
                 </div>
                 <div class="col-7 shadow-lg p-3 mb-5 bg-white rounded">
                     <p>Search for any products and we will provide the best recommendation for you.</p>
                     <hr>
-                    <form method="GET">
+                    <form method="GET" autocomplete="off" action="{% url 'productsearch' %}">
                          <div class="form-group">
                             <label for="formControlRange" class="text-secondary">Select number of recommendations: <output id="rangeoutput">5</output></label>
-                            <input type="range" class="form-control-range" id="range" min="1" max="15" value="5">
+                            <input type="range" class="form-control-range" id="range" min="1" max="15" value="5" name="recom">
                         </div>
                         <div class="form-group">
-                            <input class="form-control mr-sm-2 " type="search" placeholder="Search for product" aria-label="Search">
+                            <input class="form-control mr-sm-2 " type="text" placeholder="Search for product" name="product_name" id="search" autocomplete="off" list="datalist">
+                            {% if error_get %}
+                                 <small class="text-danger ml-2"><i class="fa fa-exclamation-circle"></i> {{ error_get }}</small>
+                            {% endif %}
+                           <datalist id="datalist"></datalist>
                         </div>
                         <button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
+                        
                     </form>
                 </div>
             </div>
