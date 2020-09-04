@@ -54,8 +54,3 @@ search.addEventListener("input",(e)=>{
     showSuggestion(e)
 })
 
-// outputlist.addEventListener("click",(e)=>{
-//     console.log(e.target.innerText)
-//     search.value = e.target.innerText;
-//     //document.querySelector('#datalist').innerHTML = '';
-// })

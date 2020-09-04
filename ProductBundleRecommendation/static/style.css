@@ -4,3 +4,13 @@ body {
 .nobull {
     list-style-type: none;
 }
+
+.box-shadow {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #fcfcfc;
+    -webkit-box-shadow: -21px 47px 41px -25px rgba(33,14,33,0.41);
+    -moz-box-shadow: -21px 47px 41px -25px rgba(33,14,33,0.41);
+    box-shadow: -21px 47px 41px -25px rgba(33,14,33,0.41);
+    border-radius:15px;
+  }
