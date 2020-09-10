@@ -83,6 +83,8 @@
                         </ul>
                         {% if recommendations %}
                             <button type="submit" class="btn btn-lg btn-outline-success mt-2"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
+                        {% else %}
+                            <p class="alert alert-warning text-center">No Recommendations</p>
                         {% endif %}
                     </form>
                 </div>
