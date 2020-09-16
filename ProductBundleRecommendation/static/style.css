@@ -5,6 +5,10 @@ body {
     list-style-type: none;
 }
 
+.pointer{
+    cursor: pointer;
+}
+
 .box-shadow {
     padding: 10px;
     margin-bottom: 20px;
