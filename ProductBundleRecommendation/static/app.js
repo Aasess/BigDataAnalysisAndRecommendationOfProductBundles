@@ -66,11 +66,17 @@ function ShowModalRegister(){
 }
 
 function UserSubmit(e,url){
-    let username = document.querySelector("input[name=username]").value;
+    let firstname = document.querySelector("input[name=first_name").value;
+    let lastname = document.querySelector("input[name=last_name").value;
+    //let username = document.querySelector("input[name=username]").value;
+    let email = document.querySelector("input[name=email]").value;
     let password1 = document.querySelector("input[name=password1]").value;
     let password2 = document.querySelector("input[name=password2]").value;
     let data = {
-        username: username,
+        first_name:firstname,
+        last_name: lastname,
+        //username: username,
+        email:email,
         password1: password1,
         password2: password2
 

@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.contrib.auth.forms import UserCreationForm
+from .forms import UserCreationForm
 import json
 
 # Create your views here.
@@ -32,9 +32,13 @@ def Register(request):
         result = result.decode("utf-8")
         #convert string into python dict
         result = json.loads(result)
+        print(result)
         form = UserCreationForm(result)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.username=result["email"]
+            user.save()
+            print(user.id)
             auth.login(request,user)
             return JsonResponse({'success':True})
     

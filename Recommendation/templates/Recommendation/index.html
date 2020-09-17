@@ -24,10 +24,11 @@
             
             {% if user.is_authenticated %}
                 <ul class="navbar-nav ml-auto">
-                        <p class="text-white pt-2 pr-3">Logged in as <strong>{{ user.username }}</strong></p>
+                       
 
                     <li class="nav-item">
-                        <a class="nav-link pr-3" href="{% url 'logout' %}">Logout <i class="fa fa-sign-out pl-1" aria-hidden="true"></i></a>
+                     <small class="text-white">Logged in as <strong>{{ user.first_name }}  {{user.last_name }}</strong></small>
+                        <a class="nav-link pl-5" href="{% url 'logout' %}">Logout <i class="fa fa-sign-out pl-1" aria-hidden="true"></i></a>
                     </li>
                 </ul>
             {% else %}
