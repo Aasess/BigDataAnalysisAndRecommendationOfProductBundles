@@ -1,7 +1,10 @@
-let range = document.querySelector("#range")
-let rangeoutput = document.querySelector("#rangeoutput")
-let search = document.querySelector("#search")
-let outputlist = document.querySelector("#datalist")
+let range = document.querySelector("#range");
+let rangeoutput = document.querySelector("#rangeoutput");
+let search = document.querySelector("#search");
+let outputlist = document.querySelector("#datalist");
+let registermodal = document.querySelector(".register-modal");
+const modal = document.querySelector(".modal-content");
+
 let productkey = []
 //lets limit product search upto 30
 let limit = 0
@@ -39,10 +42,62 @@ function showSuggestion(e){
         }
         limit = 0 
     }
-   
-   
+}
 
+function ShowModalRegister(){
+    new BSN.Modal('#Modal-user', { backdrop: true }).show();
+    //ajax call
+    let request = new XMLHttpRequest();
+    request.open("GET","/account/signup/",true);
+    request.setRequestHeader('X-Requested-With','XMLHttpRequest');
+    request.setRequestHeader('Content-type','application/json','charset=UTF-8');
+    request.onload = function (){
+        let formpage = JSON.parse(this.responseText).html_form;
+        modal.innerHTML = formpage;  
+        let form = modal.querySelector("#form");
+        csrf = document.querySelector("input[name=csrfmiddlewaretoken]").value;
+        
+        form.addEventListener("submit",(e)=>{
+            UserSubmit(e,'/account/signup/');
+        });
+         
+    }
+    request.send();
+}
 
+function UserSubmit(e,url){
+    let username = document.querySelector("input[name=username]").value;
+    let password1 = document.querySelector("input[name=password1]").value;
+    let password2 = document.querySelector("input[name=password2]").value;
+    let data = {
+        username: username,
+        password1: password1,
+        password2: password2
+
+    }
+    e.preventDefault(); 
+    let request = new XMLHttpRequest();
+    request.open("POST",url,true);
+    request.setRequestHeader('X-Requested-With','XMLHttpRequest');
+    request.setRequestHeader('Content-type','application/json','charset=UTF-8');
+    request.setRequestHeader('X-CSRFToken',`${csrf}`);
+    request.onload = function(){
+        if(JSON.parse(this.responseText).html_form){
+            let formpage = JSON.parse(this.responseText).html_form;
+            modal.innerHTML = formpage;
+            let form = modal.querySelector("#form");
+            csrf = document.querySelector("input[name=csrfmiddlewaretoken]").value
+            form.addEventListener("submit",(e)=>{
+                UserSubmit(e,'/account/signup/');
+            });
+        }  
+        else{
+        //close the form
+        new BSN.Modal('#Modal-user', { backdrop: true }).hide();
+        location.reload();
+        }
+  }
+  request.send(JSON.stringify(data));
 }
 
 //events
@@ -51,6 +106,13 @@ range.addEventListener("input",()=>{
 })
 
 search.addEventListener("input",(e)=>{
-    showSuggestion(e)
+    showSuggestion(e);
 })
 
+registermodal.addEventListener("click",()=>{
+    ShowModalRegister();
+})
+
+// window.onload=function(){
+//     document.querySelector(".register").click();
+//   };

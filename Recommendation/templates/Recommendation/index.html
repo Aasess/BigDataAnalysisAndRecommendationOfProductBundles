@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Instacart</title>
+     <!-- add icon link -->
+    <link rel = "icon" href = "https://th.bing.com/th/id/OIP.n3dyAjfUyuJDDrPHsOKbAQAAAA?pid=Api&w=180&h=180&c=7&dpr=1.12" type = "image/x-icon"> 
     <!--font-->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!--bootstrap4 cdn-->
@@ -25,13 +27,13 @@
                         <p class="text-white pt-2 pr-3">Logged in as <strong>{{ user.username }}</strong></p>
 
                     <li class="nav-item">
-                        <a class="nav-link pr-3" href="{% url 'logout' %}">Logout <i class="fa fa-user-plus pl-1" aria-hidden="true"></i></a>
+                        <a class="nav-link pr-3" href="{% url 'logout' %}">Logout <i class="fa fa-sign-out pl-1" aria-hidden="true"></i></a>
                     </li>
                 </ul>
             {% else %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link pr-3 pointer" data-toggle="modal" data-target="#Modal-user">Register <i class="fa fa-user-plus pl-1" aria-hidden="true"></i></a>
+                        <a class="nav-link pr-3 pointer register-modal">Register <i class="fa fa-user-plus pl-1" aria-hidden="true"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{% url 'login' %}">Log In <i class="fa fa-sign-in pl-1" aria-hidden="true"></i> </a>
@@ -150,47 +152,7 @@
 <div class="modal fade mt-5 pt-2" id="Modal-user">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header  bg-dark text-white">
-        <h5 class="modal-title " id="exampleModalLabel">Register with us</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST" action="{% url 'register' %}">
-      {% csrf_token %}
-        <div class="modal-body">
-            <div class="row form-group">
-                <div class="col-6">
-                    <label>Firstname:</label>
-                    <input type="text" class="form-control" placeholder="Enter Firstname" name="firstname">
-                </div>
-                <div class="col-6">
-                    <label>Lastname:</label>
-                    <input type="text" class="form-control" placeholder="Enter Lastname" name="lastname">
-                </div>
-            </div>
-            <div class="form-group">
-            <label>Username:</label>
-            <input type="text" class="form-control" placeholder="Enter Username" name="username">
-            </div>
-             <div class="form-group">
-            <label>Email:</label>
-            <input type="email" class="form-control" placeholder="Enter Email" name="email">
-            </div>
-            <div class="form-group">
-            <label>Password:</label>
-            <input type="password" class="form-control" placeholder="Enter Password" name="password">
-            </div>
-            <div class="form-group">
-            <label>Password Confirmation:</label>
-            <input type="password" class="form-control" placeholder="Enter Password Again" name="re-password">
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success">Submit</button>
-        </div>
-      </form>
+        <!--modal will be displayed here-->
     </div>
   </div>
 </div>
