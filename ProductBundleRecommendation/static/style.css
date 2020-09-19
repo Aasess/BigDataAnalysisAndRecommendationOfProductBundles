@@ -9,6 +9,9 @@ body {
     cursor: pointer;
 }
 
+.m-0{
+    list-style-type: none;
+}
 .box-shadow {
     padding: 10px;
     margin-bottom: 20px;
