@@ -21,29 +21,30 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{% url 'homepage' %}"><img src="https://d2guulkeunn7d8.cloudfront.net/assets/beetstrap/brand/logo@3x-c01b12eeb889d8665611740b281d76fa1cf88d06bcbd8a50dbcae6baecdbe9da.png" height=45 width=130></a>
-            
-            {% if user.is_authenticated %}
-                <ul class="navbar-nav ml-auto">
-                       
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% if user.is_authenticated %}
+                    <ul class="navbar-nav ml-auto">
+                        
 
-                    <li class="nav-item">
-                     <small class="text-white">Logged in as <strong>{{ user.first_name }}  {{user.last_name }}</strong></small>
-                        <a class="nav-link pl-5" href="{% url 'logout' %}">Logout <i class="fa fa-sign-out pl-1" aria-hidden="true"></i></a>
-                    </li>
-                </ul>
-            {% else %}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link pr-3 pointer register-modal">Register <i class="fa fa-user-plus pl-1" aria-hidden="true"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link pl-3 pointer login-modal">Log In <i class="fa fa-sign-in pl-1" aria-hidden="true"></i> </a>
-                    </li>
-                </ul>
-            {% endif %}
+                        <li class="nav-item">
+                        <small class="text-white">Logged in as <strong class="username">{{ user.first_name }}  {{user.last_name }}</strong></small>
+                            <a class="nav-link pl-5 text-right" href="{% url 'logout' %}">Logout <i class="fa fa-sign-out pl-1" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link pr-3 pointer register-modal">Register <i class="fa fa-user-plus pl-1" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-3 pointer login-modal">Log In <i class="fa fa-sign-in pl-1" aria-hidden="true"></i> </a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
         </nav>
     </div>
-
+ <a class="sticky-top float-right p-4 m-3 pointer cart"><img src="https://s3.amazonaws.com/nuggetcomfort/cart_icon.png" width="55px"></a>
     <div class="jumbotron pb-3 pt-4">
         <div class="container">
             <h2 class="display-4">Instacart Market Basket Analysis</h2>
@@ -148,7 +149,7 @@
     </div>
  
 
-
+ 
 <!-- Modal -->
 <div class="modal fade mt-5 pt-2" id="Modal-user">
   <div class="modal-dialog">

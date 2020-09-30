@@ -1,3 +1,12 @@
+.navbar-dark .navbar-nav .nav-link {
+    color: #f8f9fa;
+}
+
+.username{
+    color:#76d476;
+    font-size: 14px;
+}
+
 body {
     font-family: 'Roboto', sans-serif;  
 }
@@ -20,4 +29,14 @@ body {
     -moz-box-shadow: -21px 47px 41px -25px rgba(33,14,33,0.41);
     box-shadow: -21px 47px 41px -25px rgba(33,14,33,0.41);
     border-radius:15px;
-  }
+}
+
+.cart {
+    border-radius: 121px 121px 121px 121px;
+-moz-border-radius: 121px 121px 121px 121px;
+-webkit-border-radius: 121px 121px 121px 121px;
+border: 0px none #000000;
+    background: rgb(2,0,36);
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(11,9,121,0.8670021657193645) 42%, rgba(0,212,255,1) 100%);
+} 
+ 
