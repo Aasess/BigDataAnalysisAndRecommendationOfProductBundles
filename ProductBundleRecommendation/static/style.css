@@ -35,13 +35,20 @@ body {
     position: sticky;
     top: 83%;
     right: 5%;
+    z-index: 1;
     border-radius: 121px 121px 121px 121px;
     -moz-border-radius: 121px 121px 121px 121px;
     -webkit-border-radius: 121px 121px 121px 121px;
     border: 0px none #000000;
     background: rgb(2,0,36);
     background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(11,9,121,0.8670021657193645) 42%, rgba(0,212,255,1) 100%);
+    opacity:0.9;
 } 
+
+.cart:hover {
+    opacity:1;
+    transform: scale(1.2, 1.2);
+}
 
 .cart-count {
     position: absolute;
@@ -49,17 +56,12 @@ body {
     right: -7px;
     height: 28px;
     width: 28px;
-    background: #e94a35;
-    background: var(--cd-color-5);
-    color: #fff;
-    color: var(--cd-color-3);
     font-size: 1.1333em;
     padding-top:1px;
     color: white;
     background:red;
     font-weight: 700;
     border-radius: 80%;
-    text-indent: 0;
     transition: -webkit-transform .2s .5s;
     transition: transform .2s .5s;
     transition: transform .2s .5s,-webkit-transform .2s .5s;
@@ -68,7 +70,7 @@ body {
 }
 
 .jumbo-image {
-   
+    z-index: -1;
     background-image: url("https://thumbs.dreamstime.com/b/healthy-food-background-studio-photo-different-fruits-vegetables-old-wooden-table-high-resolution-product-68278471.jpg");
     border-radius:0px;
     background-size: contain;
@@ -77,4 +79,3 @@ body {
 }
 
 /* img link: https://thumbs.dreamstime.com/b/healthy-food-background-studio-photo-different-fruits-vegetables-old-wooden-table-high-resolution-product-68278471.jpg */
-
