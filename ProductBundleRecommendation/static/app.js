@@ -5,8 +5,9 @@ let outputlist = document.querySelector("#datalist");
 let registermodal = document.querySelector(".register-modal");
 let loginmodal = document.querySelector(".login-modal");
 let modal = document.querySelector(".modal-content");
-
 let productkey = []
+let prevScrollpos = window.pageYOffset;
+let cart = document.querySelector(".cart")
 //lets limit product search upto 30
 let limit = 0
 //fetch the json data
@@ -15,9 +16,21 @@ fetch(url)
 .then((resp) => resp.json())
 .then(function(data){
     productkey = Object.keys(data)
-})
+});
+
 
 //funcion call
+
+function scrollfunction(){
+    let currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+        document.getElementById("nav").style.top = "0";
+    } else {
+        document.getElementById("nav").style.top = "-67.75px";
+    }
+    prevScrollpos = currentScrollPos;
+}
+
 function showSuggestion(e){
     
     document.querySelector('#datalist').innerHTML = '';
@@ -161,6 +174,12 @@ function UserLoginSubmit(e,url){
     request.send(JSON.stringify(data));
 }
 
+function ShowCartdetail(e){
+    e.stopPropagation();
+    document.querySelector(".cart-popup").classList.toggle("cart-popup-block-display")
+    
+}
+
 //events
 range.addEventListener("input",()=>{
     rangeoutput.innerHTML = `<output class="text-danger"> <strong>${range.value}</strong></output>`;
@@ -176,4 +195,18 @@ registermodal.addEventListener("click",()=>{
 
 loginmodal.addEventListener("click",()=>{
     ShowModalLogin();
+})
+
+//when user scrolls down, hide the navbar. when user scrolls up,show the navbar
+window.addEventListener("scroll",scrollfunction)
+
+
+//when cart is clicked
+cart.addEventListener("click",ShowCartdetail)
+
+
+document.addEventListener("click",(e)=>{
+    if(e.target.classList.contains("fa-angle-down")){
+        document.querySelector(".cart-popup").classList.remove("cart-popup-block-display")
+    }
 })

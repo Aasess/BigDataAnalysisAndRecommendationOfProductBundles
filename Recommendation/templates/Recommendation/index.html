@@ -18,7 +18,7 @@
 </head>
 <body>
     <!-- As a link -->
-    <div>
+    <div id="nav">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{% url 'homepage' %}"><img src="https://d2guulkeunn7d8.cloudfront.net/assets/beetstrap/brand/logo@3x-c01b12eeb889d8665611740b281d76fa1cf88d06bcbd8a50dbcae6baecdbe9da.png" height=45 width=130></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -146,23 +146,95 @@
                 <h4>Top Products Bundles</h4>
                 <hr>
                 <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Bundle</th>
-                    <th scope="col">Frequency</th>
-                    </tr>
-                </thead>
-                 <tbody>
-                 {% for i,bundle in zippedBundles %}
-                     <tr>
-                    <th scope="row">{{ i }}</th>
-                    <td>{{ bundle.firstproduct }} + {{ bundle.secondproduct }}</td>
-                    <td class="text-right">{{ bundle.frequency }}</td>
-                    </tr>
-                 {% endfor %}
-                </tbody>
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Bundle</th>
+                        <th scope="col">Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i,bundle in zippedBundles %}
+                        <tr>
+                        <th scope="row">{{ i }}</th>
+                        <td>{{ bundle.firstproduct }} + {{ bundle.secondproduct }}</td>
+                        <td class="text-right">{{ bundle.frequency }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
+        </div>
+
+        <div class="cart-popup shadow ">
+            <div class="cart-popup-header p-3">
+                <div class="row">
+                    <div class="col-10 header-text mt-2">
+                        <h5>Shopping Cart</h5>
+                    </div>
+                    <div class="col-2 text-right" title="Minimize Cart">
+                        <i class="fa fa-angle-down fa-2x pointer" aria-hidden="true"></i>
+                    </div>
+                </div> 
+            </div>
+          <div class="cart-body">
+                <div class="card mb-1">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <p>Grilled_Chicken_Pesto_&_Vegetables_Café_Steamers</p>
+                            </div>
+                            <div class="col-2 text-right text-danger" title="delete product from cart">
+                                    <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 input-group input-group-sm">
+                                <strong class="pr-2 pt-1">Qty: </strong><input type="number" class="form-control" value="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-1">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <p>Grilled_Chicken_Pesto_&_Vegetables_Café_Steamers</p>
+                            </div>
+                            <div class="col-2 text-right text-danger" title="delete product from cart">
+                                   <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 input-group input-group-sm">
+                                <strong class="pr-2 pt-1">Qty: </strong><input type="number" class="form-control" value="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-1">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <p>Grilled_Chicken_Pesto_&_Vegetables_Café_Steamers</p>
+                            </div>
+                            <div class="col-2 text-right text-danger" title="delete product from cart">
+                                    <i class="fa fa-times-circle  fa-lg" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 input-group input-group-sm">
+                                <strong class="pr-2 pt-1">Qty: </strong><input type="number" class="form-control" value="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+            <div class="footer text-center">
+                <a class="btn btn-danger btn-lg btn-block checkout-btn ">CHECKOUT</a>
+            </div>
+
         </div>
     </div>
  
