@@ -10,7 +10,7 @@ let prevScrollpos = window.pageYOffset;
 let cart = document.querySelector(".cart");
 
 let cartaddbtn = document.querySelector(".cartaddbtn");
-let qty = ""
+let qtyAll = ""
 //lets limit product search upto 30
 let limit = 0
 //fetch the json data
@@ -224,7 +224,7 @@ if(localStorage.length > 0){
     objectcart.push(localStorage.getItem('object'));
     test = localStorage.getItem('object').split('},').join('}$').split('$');
     
-    sum = 0;
+    var sum = 0;
     test.forEach((t)=>{
         var ei = JSON.parse(t);
         sum += ei["qty"];
@@ -254,8 +254,10 @@ else{
     document.querySelector(".cart-body").innerHTML = '<p class="text-center text-danger mt-2"><strong>No items added to the cart</strong></p>';
 }
 cartaddbtn.addEventListener("click",()=>{
-    objectcart = [];
-    objectcart.push(localStorage.getItem('object'));
+    if(localStorage.length > 0){
+        objectcart = [];
+        objectcart.push(localStorage.getItem('object'));
+    }
     if(document.querySelector(".productname:checked")){
         productnameclicked = document.querySelector(".productname:checked").value;
         
