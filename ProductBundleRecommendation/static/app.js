@@ -7,7 +7,10 @@ let loginmodal = document.querySelector(".login-modal");
 let modal = document.querySelector(".modal-content");
 let productkey = []
 let prevScrollpos = window.pageYOffset;
-let cart = document.querySelector(".cart")
+let cart = document.querySelector(".cart");
+
+let cartaddbtn = document.querySelector(".cartaddbtn");
+let qty = ""
 //lets limit product search upto 30
 let limit = 0
 //fetch the json data
@@ -189,13 +192,16 @@ search.addEventListener("input",(e)=>{
     showSuggestion(e);
 });
 
-registermodal.addEventListener("click",()=>{
-    ShowModalRegister();
-});
+if(!document.querySelector(".user-logout")){
+    registermodal.addEventListener("click",()=>{
+        ShowModalRegister();
+    });
+    
+    loginmodal.addEventListener("click",()=>{
+        ShowModalLogin();
+    })
+}
 
-loginmodal.addEventListener("click",()=>{
-    ShowModalLogin();
-})
 
 //when user scrolls down, hide the navbar. when user scrolls up,show the navbar
 window.addEventListener("scroll",scrollfunction)
@@ -209,4 +215,77 @@ document.addEventListener("click",(e)=>{
     if(e.target.classList.contains("fa-angle-down")){
         document.querySelector(".cart-popup").classList.remove("cart-popup-block-display")
     }
+})
+
+
+// ------------------------------
+objectcart = [];
+if(localStorage.length > 0){
+    objectcart.push(localStorage.getItem('object'));
+    test = localStorage.getItem('object').split('},').join('}$').split('$');
+    
+    sum = 0;
+    test.forEach((t)=>{
+        var ei = JSON.parse(t);
+        sum += ei["qty"];
+        document.querySelector(".cart-body").innerHTML += `<div class="card mb-1">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10 productnamecart">
+                                <p>${ei['product_name_cart']}</p>
+                            </div>
+                            <div class="col-2 text-right text-danger" title="delete product from cart">
+                                    <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 input-group input-group-sm">
+                                <strong class="pr-2 pt-1">Qty: </strong><input type="number"  min="1" step="1" class="form-control" value=${ei['qty']}>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+});
+    document.querySelector(".cart-count").innerText = sum;
+    qtyAll = document.querySelectorAll("input[type=number]");
+}
+else{
+    document.querySelector(".cart-count").innerText = 0;
+    document.querySelector(".cart-body").innerHTML = '<p class="text-center text-danger mt-2"><strong>No items added to the cart</strong></p>';
+}
+cartaddbtn.addEventListener("click",()=>{
+    objectcart = [];
+    objectcart.push(localStorage.getItem('object'));
+    if(document.querySelector(".productname:checked")){
+        productnameclicked = document.querySelector(".productname:checked").value;
+        
+        objectcart.push(JSON.stringify({
+            product_name_cart:productnameclicked,
+            qty: 1
+        }));
+        localStorage.setItem('object',objectcart)
+        // test3 = objectcart[0].split('},').join('}$').split('$');
+    }
+})
+
+qtyAll.forEach((qty)=>{
+    qty.addEventListener("change",()=>{
+        temp = "";
+        sum = 0;
+        test = localStorage.getItem('object').split('},').join('}$').split('$');
+        p_name =qty.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
+        test.forEach((t)=>{
+        var ei = JSON.parse(t);
+            if(p_name == ei["product_name_cart"]){
+                ei["qty"] = parseInt(qty.value);
+            }
+            sum += ei["qty"]; 
+            temp += JSON.stringify(ei).split('}').join('},');
+        
+        });
+        temp = temp.slice(0,-1);
+        localStorage.setItem('object',temp);
+        document.querySelector(".cart-count").innerText = sum;
+        
+    });
 })

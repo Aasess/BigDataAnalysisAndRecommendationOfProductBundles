@@ -45,7 +45,7 @@ body {
 .cart {
     position: sticky;
     top: 83%;
-    right: 5%;
+    right: 20px;
     z-index: 1;
     border-radius: 121px 121px 121px 121px;
     -moz-border-radius: 121px 121px 121px 121px;
@@ -91,11 +91,11 @@ body {
     display:none;
     position: fixed;
     bottom:7.5%;
-    right: 8.5%;
+    right: 150px;
     background-color:#f8f9fa;
     z-index : 7;
     width:400px;
-    height:400px;
+    height:500px;
     border-radius: 10px 10px 10px 10px;
 }
 
@@ -130,7 +130,7 @@ body {
     float:left;
     width:400px;
     overflow-y: auto;
-    height: 299px;
+    height: 399px;
  }
 
  .fa-times-circle:hover{

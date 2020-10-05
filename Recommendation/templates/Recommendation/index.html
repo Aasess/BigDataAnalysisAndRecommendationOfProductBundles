@@ -28,7 +28,7 @@
 
                         <li class="nav-item">
                         <small class="text-white">Welcome, <strong class="username">{{ user.first_name }}  {{user.last_name }}</strong></small>
-                            <a class="nav-link pl-5 text-right" href="{% url 'logout' %}">Logout <i class="fa fa-sign-out pl-1" aria-hidden="true"></i></a>
+                            <a class="nav-link pl-5 text-right user-logout" href="{% url 'logout' %}">Logout <i class="fa fa-sign-out pl-1" aria-hidden="true"></i></a>
                         </li>
                     </ul>
                 {% else %}
@@ -131,12 +131,12 @@
                         <ul class="nobull">
                         {% for item in items %}
                             <li>
-                                <input type="checkbox" id="item-{{ item }}" name="product_name" value="{{ item }}" />
+                                <input type="checkbox" id="item-{{ item }}" name="product_name" value="{{ item }}" class="productname"/>
                                 <label for="items">{{ item }}</label>
                             </li>
                         {% endfor %}
                         <hr>
-                        <button type="submit" class="btn btn-lg btn-outline-success mt-2"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
+                        <button type="submit" class="btn btn-lg btn-outline-success mt-2 cartaddbtn"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
                         </ul>
                     </form>
                 </div>
@@ -178,58 +178,7 @@
                 </div> 
             </div>
           <div class="cart-body">
-                <div class="card mb-1">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <p>Grilled_Chicken_Pesto_&_Vegetables_Café_Steamers</p>
-                            </div>
-                            <div class="col-2 text-right text-danger" title="delete product from cart">
-                                    <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 input-group input-group-sm">
-                                <strong class="pr-2 pt-1">Qty: </strong><input type="number" class="form-control" value="1">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-1">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <p>Grilled_Chicken_Pesto_&_Vegetables_Café_Steamers</p>
-                            </div>
-                            <div class="col-2 text-right text-danger" title="delete product from cart">
-                                   <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 input-group input-group-sm">
-                                <strong class="pr-2 pt-1">Qty: </strong><input type="number" class="form-control" value="1">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mb-1">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <p>Grilled_Chicken_Pesto_&_Vegetables_Café_Steamers</p>
-                            </div>
-                            <div class="col-2 text-right text-danger" title="delete product from cart">
-                                    <i class="fa fa-times-circle  fa-lg" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 input-group input-group-sm">
-                                <strong class="pr-2 pt-1">Qty: </strong><input type="number" class="form-control" value="1">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
           </div>
             <div class="footer text-center">
                 <a class="btn btn-danger btn-lg btn-block checkout-btn ">CHECKOUT</a>
