@@ -12,7 +12,7 @@ let availablecartaddbtn = document.querySelector(".cartaddbtn");
 let recommendcartaddbtn = document.querySelector(".recommendcartaddbtn");
 let qtyAll = ""
 let deletebtns = ""
-
+let objectcart = [];
 //lets limit product search upto 30
 let limit = 0
 //fetch the json data
@@ -229,7 +229,7 @@ function displayProduct(){
     if(localStorage.length > 0){
         populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
         sum = 0;
-        document.querySelector(".cart-body").innerText = '';
+        
         populatelocalStorage.forEach((eachproductdetail)=>{
             parsed_product = JSON.parse(eachproductdetail);
             sum += parsed_product["qty"];
@@ -250,12 +250,10 @@ function displayProduct(){
                             </div>
                         </div>
                     </div>`
-                    console.log("are you in loop then?")
     });
     document.querySelector(".cart-count").innerText = sum;
     qtyAll = document.querySelectorAll("input[type=number]");
     deletebtns = document.querySelectorAll(".deleteproduct");
-    console.log(deletebtns)
    
     }
     else{
@@ -321,25 +319,21 @@ qtyAll.forEach((qty)=>{
 //when delete button inside cart is clicked
 deletebtns.forEach((dltbtn)=>{
     dltbtn.addEventListener("click",(e)=>{
-       DeleteProductFromCart(e,displayProduct)
+        populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
+        p_name =e.target.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
+        var pet = populatelocalStorage.filter((eachproductdetail)=>{
+            var parsed_product = JSON.parse(eachproductdetail);
+            return (p_name != parsed_product["product_name_cart"]);
+        });
+        pet = JSON.stringify(pet).replace(/\\/g, "").split('}","{').join("},{");
+         pet = pet.slice(2,-2);
+         if(pet.length > 0){
+            localStorage.setItem('object',pet);
+            document.querySelector(".cart-body").innerText = '';
+         }else{
+             localStorage.clear();
+         }
+        displayProduct();
+         
     });
 });
-
-function DeleteProductFromCart(e,callback){
-    console.log("clicked")
-    populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
-    p_name =e.target.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
-    var pet = populatelocalStorage.filter((eachproductdetail)=>{
-        var parsed_product = JSON.parse(eachproductdetail);
-        return (p_name != parsed_product["product_name_cart"]);
-    });
-    pet = JSON.stringify(pet).replace(/\\/g, "").split('}","{').join("},{");
-     pet = pet.slice(2,-2);
-     if(pet.length > 0){
-        localStorage.setItem('object',pet);
-        
-     }else{
-         localStorage.clear();
-     }
-    callback();   
-}
