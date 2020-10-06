@@ -110,13 +110,13 @@
                         <ul class="nobull">
                         {% for item in recommendations %}
                             <li>
-                                <input type="checkbox" id="item-{{ item }}" name="product_name" value="{{ item }}" />
+                                <input type="checkbox" id="item-{{ item }}" name="product_name" value="{{ item }}" class="recommendedproductname" />
                                 <label for="items">{{ item }}</label>
                             </li>
                         {% endfor %}
                         </ul>
                         {% if recommendations %}
-                            <button type="submit" class="btn btn-lg btn-outline-success mt-2"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
+                            <button type="submit" class="btn btn-lg btn-outline-success mt-2 recommendcartaddbtn"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
                         {% else %}
                             <p class="alert alert-warning text-center">No Recommendation</p>
                         {% endif %}
@@ -131,7 +131,7 @@
                         <ul class="nobull">
                         {% for item in items %}
                             <li>
-                                <input type="checkbox" id="item-{{ item }}" name="product_name" value="{{ item }}" class="productname"/>
+                                <input type="checkbox" id="item-{{ item }}" name="product_name" value="{{ item }}" class="availableproductname"/>
                                 <label for="items">{{ item }}</label>
                             </li>
                         {% endfor %}

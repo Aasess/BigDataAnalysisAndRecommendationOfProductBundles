@@ -8,9 +8,11 @@ let modal = document.querySelector(".modal-content");
 let productkey = []
 let prevScrollpos = window.pageYOffset;
 let cart = document.querySelector(".cart");
-
-let cartaddbtn = document.querySelector(".cartaddbtn");
+let availablecartaddbtn = document.querySelector(".cartaddbtn");
+let recommendcartaddbtn = document.querySelector(".recommendcartaddbtn");
 let qtyAll = ""
+let deletebtns = ""
+
 //lets limit product search upto 30
 let limit = 0
 //fetch the json data
@@ -22,7 +24,7 @@ fetch(url)
 });
 
 
-//funcion call
+//----------------------funcion call-------------------------------------------
 
 function scrollfunction(){
     let currentScrollPos = window.pageYOffset;
@@ -179,11 +181,92 @@ function UserLoginSubmit(e,url){
 
 function ShowCartdetail(e){
     e.stopPropagation();
-    document.querySelector(".cart-popup").classList.toggle("cart-popup-block-display")
+    document.querySelector(".cart-popup").classList.toggle("cart-popup-block-display");
     
 }
 
-//events
+function CartLocalStorage(productname){
+        if(localStorage.length > 0){
+            objectcart = [];
+            objectcart.push(localStorage.getItem('object'));
+        }
+        if(document.querySelector(`.${productname}:checked`)){
+            productnameclicked = document.querySelector(`.${productname}:checked`).value;
+            
+            objectcart.push(JSON.stringify({
+                product_name_cart:productnameclicked,
+                qty: 1
+            }));
+            localStorage.setItem('object',objectcart)
+            
+        }
+}
+
+
+function QualityChange(e){
+    tempcartobject = "";
+    sum = 0;
+    populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
+    p_name =e.target.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
+    populatelocalStorage.forEach((eachproductdetail)=>{
+    var parsed_product = JSON.parse(eachproductdetail);
+        if(p_name == parsed_product["product_name_cart"]){
+            parsed_product["qty"] = parseInt(e.target.value);
+        }
+        sum += parsed_product["qty"]; 
+        tempcartobject += JSON.stringify(parsed_product).split('}').join('},');
+    
+    });
+    tempcartobject = tempcartobject.slice(0,-1);
+    localStorage.setItem('object',tempcartobject);
+    document.querySelector(".cart-count").innerText = sum;
+    
+};
+
+
+// ----------------display productname and quantity to cart--------------
+function displayProduct(){ 
+    if(localStorage.length > 0){
+        populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
+        sum = 0;
+        document.querySelector(".cart-body").innerText = '';
+        populatelocalStorage.forEach((eachproductdetail)=>{
+            parsed_product = JSON.parse(eachproductdetail);
+            sum += parsed_product["qty"];
+            document.querySelector(".cart-body").innerHTML += `<div class="card mb-1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10 productnamecart">
+                                    <p>${parsed_product['product_name_cart']}</p>
+                                </div>
+                                <div class="col-2 text-right text-danger" title="delete product from cart">
+                                        <i class="fa fa-times-circle fa-lg deleteproduct" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 input-group input-group-sm">
+                                    <strong class="pr-2 pt-1">Qty: </strong><input type="number"  min="1" step="1" class="form-control" value=${parsed_product['qty']}>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                    console.log("are you in loop then?")
+    });
+    document.querySelector(".cart-count").innerText = sum;
+    qtyAll = document.querySelectorAll("input[type=number]");
+    deletebtns = document.querySelectorAll(".deleteproduct");
+    console.log(deletebtns)
+   
+    }
+    else{
+        
+        document.querySelector(".cart-count").innerText = 0;
+        document.querySelector(".cart-body").innerHTML = '<p class="text-center text-danger mt-2"><strong>No items added to the cart</strong></p>';
+    }
+}
+
+displayProduct();
+//-------------------events---------------------------------
 range.addEventListener("input",()=>{
     rangeoutput.innerHTML = `<output class="text-danger"> <strong>${range.value}</strong></output>`;
 });
@@ -218,76 +301,45 @@ document.addEventListener("click",(e)=>{
 })
 
 
-// ------------------------------
-objectcart = [];
-if(localStorage.length > 0){
-    objectcart.push(localStorage.getItem('object'));
-    test = localStorage.getItem('object').split('},').join('}$').split('$');
-    
-    var sum = 0;
-    test.forEach((t)=>{
-        var ei = JSON.parse(t);
-        sum += ei["qty"];
-        document.querySelector(".cart-body").innerHTML += `<div class="card mb-1">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10 productnamecart">
-                                <p>${ei['product_name_cart']}</p>
-                            </div>
-                            <div class="col-2 text-right text-danger" title="delete product from cart">
-                                    <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 input-group input-group-sm">
-                                <strong class="pr-2 pt-1">Qty: </strong><input type="number"  min="1" step="1" class="form-control" value=${ei['qty']}>
-                            </div>
-                        </div>
-                    </div>
-                </div>`
-});
-    document.querySelector(".cart-count").innerText = sum;
-    qtyAll = document.querySelectorAll("input[type=number]");
-}
-else{
-    document.querySelector(".cart-count").innerText = 0;
-    document.querySelector(".cart-body").innerHTML = '<p class="text-center text-danger mt-2"><strong>No items added to the cart</strong></p>';
-}
-cartaddbtn.addEventListener("click",()=>{
-    if(localStorage.length > 0){
-        objectcart = [];
-        objectcart.push(localStorage.getItem('object'));
-    }
-    if(document.querySelector(".productname:checked")){
-        productnameclicked = document.querySelector(".productname:checked").value;
-        
-        objectcart.push(JSON.stringify({
-            product_name_cart:productnameclicked,
-            qty: 1
-        }));
-        localStorage.setItem('object',objectcart)
-        // test3 = objectcart[0].split('},').join('}$').split('$');
-    }
-})
 
+
+//store to local storage when cart btns are clicked
+availablecartaddbtn.addEventListener("click",()=>{
+    CartLocalStorage("availableproductname");
+});
+
+if(recommendcartaddbtn){
+    recommendcartaddbtn.addEventListener("click",()=>{
+    CartLocalStorage("recommendedproductname");
+});
+}
+//when quantity inside cart is changed
 qtyAll.forEach((qty)=>{
-    qty.addEventListener("change",()=>{
-        temp = "";
-        sum = 0;
-        test = localStorage.getItem('object').split('},').join('}$').split('$');
-        p_name =qty.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
-        test.forEach((t)=>{
-        var ei = JSON.parse(t);
-            if(p_name == ei["product_name_cart"]){
-                ei["qty"] = parseInt(qty.value);
-            }
-            sum += ei["qty"]; 
-            temp += JSON.stringify(ei).split('}').join('},');
-        
-        });
-        temp = temp.slice(0,-1);
-        localStorage.setItem('object',temp);
-        document.querySelector(".cart-count").innerText = sum;
-        
+    qty.addEventListener("change",QualityChange);
+});
+
+//when delete button inside cart is clicked
+deletebtns.forEach((dltbtn)=>{
+    dltbtn.addEventListener("click",(e)=>{
+       DeleteProductFromCart(e,displayProduct)
     });
-})
+});
+
+function DeleteProductFromCart(e,callback){
+    console.log("clicked")
+    populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
+    p_name =e.target.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
+    var pet = populatelocalStorage.filter((eachproductdetail)=>{
+        var parsed_product = JSON.parse(eachproductdetail);
+        return (p_name != parsed_product["product_name_cart"]);
+    });
+    pet = JSON.stringify(pet).replace(/\\/g, "").split('}","{').join("},{");
+     pet = pet.slice(2,-2);
+     if(pet.length > 0){
+        localStorage.setItem('object',pet);
+        
+     }else{
+         localStorage.clear();
+     }
+    callback();   
+}
