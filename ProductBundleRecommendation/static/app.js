@@ -229,7 +229,7 @@ function displayProduct(){
     if(localStorage.length > 0){
         populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
         sum = 0;
-        
+        document.querySelector(".cart-body").innerHTML = ''
         populatelocalStorage.forEach((eachproductdetail)=>{
             parsed_product = JSON.parse(eachproductdetail);
             sum += parsed_product["qty"];
@@ -329,11 +329,16 @@ deletebtns.forEach((dltbtn)=>{
          pet = pet.slice(2,-2);
          if(pet.length > 0){
             localStorage.setItem('object',pet);
-            document.querySelector(".cart-body").innerText = '';
+           
          }else{
              localStorage.clear();
          }
+        
         displayProduct();
+        setTimeout(function(){ 
+            alert(`Product- "${p_name}" deleted from cart`);
+            location.reload()}, 100);
+        
          
     });
 });
