@@ -115,7 +115,7 @@ body {
 }
 
 
-.footer {
+.cart-footer {
     position: fixed;
     width: 400px;
     bottom:7.5%;
@@ -126,6 +126,8 @@ body {
     border-radius: 0px 0px 10px 10px;
 }
 
+
+
 .cart-body {
     float:left;
     width:400px;
@@ -135,5 +137,46 @@ body {
 
  .fa-times-circle:hover{
     transform: scale(1.3, 1.3)
+}
+
+
+@media only screen and (max-width: 550px) {
+    body{
+        font-size:12px;
+    }
+
+    h4 {
+        font-size: 18px;
+    }
+    .display-4 {
+        font-size:40px;
+    }
+    
+  .cart-popup {
+      left: 30px;
+      right:20px;
+      width: 300px;
+      position:fixed;
+      font-size: 12px;
+  }
+
+  .cart-body {
+    float:left;
+    width:300px;
+    overflow-y: auto;
+    height: 399px;
+ }
+
+    
+.cart-footer {
+    position: fixed;
+    width: 300px;
+    bottom:7.5%;
+    font-size:12px;
+}
+
+.jumbo-image {
+    background-size: inherit;
+}
 }
 /* img link: https://thumbs.dreamstime.com/b/healthy-food-background-studio-photo-different-fruits-vegetables-old-wooden-table-high-resolution-product-68278471.jpg */

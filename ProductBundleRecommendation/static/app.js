@@ -254,12 +254,13 @@ function displayProduct(){
     document.querySelector(".cart-count").innerText = sum;
     qtyAll = document.querySelectorAll("input[type=number]");
     deletebtns = document.querySelectorAll(".deleteproduct");
-   
+    document.querySelector(".cart-footer").innerHTML = '<a class="btn btn-danger btn-lg btn-block checkout-btn ">CHECKOUT </a>'
     }
     else{
         
         document.querySelector(".cart-count").innerText = 0;
         document.querySelector(".cart-body").innerHTML = '<p class="text-center text-danger mt-2"><strong>No items added to the cart</strong></p>';
+        document.querySelector(".cart-footer").innerHTML = ""
     }
 }
 
@@ -336,7 +337,7 @@ deletebtns.forEach((dltbtn)=>{
         
         displayProduct();
         setTimeout(function(){ 
-            alert(`Product- "${p_name}" deleted from cart`);
+            alert(`Item- "${p_name}" deleted from cart`);
             location.reload()}, 100);
         
          
