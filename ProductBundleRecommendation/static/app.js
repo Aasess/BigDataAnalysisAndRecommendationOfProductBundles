@@ -9,6 +9,7 @@ let productkey = []
 let prevScrollpos = window.pageYOffset;
 let cart = document.querySelector(".cart");
 let availablecartaddbtn = document.querySelector(".cartaddbtn");
+//let availablecartaddbtnmain = document.querySelector(".cartaddbtnmain");
 let recommendcartaddbtn = document.querySelector(".recommendcartaddbtn");
 let qtyAll = ""
 let deletebtns = ""
@@ -201,19 +202,22 @@ function CartLocalStorage(productname){
             
         }
        
-        if(document.querySelector(`.${productname}`)){
-            productnameclicked = document.querySelector("#search").value;
-            if(productnameclicked.length>2){
-                objectcart.push(JSON.stringify({
-                    product_name_cart:productnameclicked,
-                    qty: 1
-                }));
-                localStorage.setItem('object',objectcart)
-            }
-            
-        }
 }
 
+
+function CartLocalStorageFromSearchTab(productname){
+    if(localStorage.length > 0){
+        objectcart = [];
+        objectcart.push(localStorage.getItem('object'));
+    }
+    //productnameclicked = document.querySelector("#search").value;
+    objectcart.push(JSON.stringify({
+        product_name_cart:productname,
+        qty: 1
+    }));
+    localStorage.setItem('object',objectcart)
+        
+}
 
 function QualityChange(e){
     tempcartobject = "";
@@ -325,40 +329,49 @@ if(recommendcartaddbtn){
 });
 }
 //when quantity inside cart is changed
-qtyAll.forEach((qty)=>{
-    qty.addEventListener("change",QualityChange);
-});
+if(localStorage.length > 0){
+    qtyAll.forEach((qty)=>{
+        qty.addEventListener("change",QualityChange);
+    });
+}
 
 //when delete button inside cart is clicked
-deletebtns.forEach((dltbtn)=>{
-    dltbtn.addEventListener("click",(e)=>{
-        populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
-        p_name =e.target.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
-        var pet = populatelocalStorage.filter((eachproductdetail)=>{
-            var parsed_product = JSON.parse(eachproductdetail);
-            return (p_name != parsed_product["product_name_cart"]);
+if(localStorage.length > 0){
+    deletebtns.forEach((dltbtn)=>{
+        dltbtn.addEventListener("click",(e)=>{
+            populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
+            p_name =e.target.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.innerText;
+            var pet = populatelocalStorage.filter((eachproductdetail)=>{
+                var parsed_product = JSON.parse(eachproductdetail);
+                return (p_name != parsed_product["product_name_cart"]);
+            });
+            pet = JSON.stringify(pet).replace(/\\/g, "").split('}","{').join("},{");
+             pet = pet.slice(2,-2);
+             if(pet.length > 0){
+                localStorage.setItem('object',pet);
+               
+             }else{
+                 localStorage.clear();
+             }
+            
+            displayProduct();
+            setTimeout(function(){ 
+                alert(`Item- "${p_name}" deleted from cart`);
+                location.reload()}, 100);
+            
+             
         });
-        pet = JSON.stringify(pet).replace(/\\/g, "").split('}","{').join("},{");
-         pet = pet.slice(2,-2);
-         if(pet.length > 0){
-            localStorage.setItem('object',pet);
-           
-         }else{
-             localStorage.clear();
-         }
-        
-        displayProduct();
-        setTimeout(function(){ 
-            alert(`Item- "${p_name}" deleted from cart`);
-            location.reload()}, 100);
-        
-         
     });
-});
+}
+
+
 
 document.getElementById("search").addEventListener('change', ()=>{
-    console.log("jell0");
-    console.log(document.getElementById("datalist").options.length);
     mylist=document.getElementById("datalist");
-    console.log(mylist.options[0].value);
+
+    //store to local storage when cart btns are clicked
+    availablecartaddbtn.addEventListener("click",()=>{
+    CartLocalStorageFromSearchTab(mylist.options[0].value);
 });
+});
+
