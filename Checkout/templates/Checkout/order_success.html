@@ -152,93 +152,20 @@ span.price {
         </nav>
     </div>
     <div class="container continue mt-3 mb-3">
-        <div class="progress mt-3 mb-3">
-            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        <h2>Checkout Form</h2>
-    <p>Fill the required form and confirm to place orders.</p>
-    <div class="row">
-    <div class="col-75">
-        <div class="container">
-        <form action="{% url 'checkout' %}" method="POST">
-            {% csrf_token %}
-            <div class="row">
-            <div class="col-50">
-                <h3>Shipping Address</h3>
-                <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                <input type="text" id="fname" name="name" value="{{ user.first_name }} {{ user.last_name }}" required>
-                <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                <input type="text" id="email" name="email" value="{{ user.email }}" required>
-                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                <input type="text" id="adr" name="address" placeholder="218, Shringhkhala Gali, Alaknagar, Koteshwor" required>
-                <label for="city"><i class="fa fa-institution"></i> City</label>
-                <input type="text" id="city" name="city" placeholder="Kathmandu" required>
-
-                <div class="row">
-                <div class="col-100 pl-4">
-                    <label for="state">Province</label>
-                    <input type="text" id="state" name="province" placeholder="Bagmati" required>
-                </div>
-                <div class="col-50">
-                    <label for="zip">Zip</label>
-                    <input type="text" id="zip" name="zip" placeholder="44600" required>
-                </div>
-                </div>
-            </div>
-
-          
-            
-            </div>
-            
-            <input type="submit" value="Continue to checkout" class="btn" id="submit-button">
-        </form>
-        </div>
-    </div>
-    <div class="col-25">
-        <div class="container">
-        <h4>Cart <span class="price cartnum" style="color:black"></span></h4>
-        <div class="cart"></div>
-        
-        <hr>
-        <h4>Total <span class="price" style="color:#46be25"><b>$60</b></span></h4>
-        </div>
-    </div>
-    </div>
-
+        Your order <strong>#{{ order_id }}</strong> has been placed. Please check email sent to <strong>{{ recepient }}</strong>. <a href="{% url 'homepage' %}">Continue Shopping</a>
     </div>
 </body>
 </html>
 
 
 <script>
-    const btn = document.querySelector('button');
-    function displayProduct(){ 
-    if(localStorage.length > 0){
-        populatelocalStorage = localStorage.getItem('object').split('},').join('}$').split('$');
-        sum = 0;
-        document.querySelector(".cart").innerHTML = ''
-        populatelocalStorage.forEach((eachproductdetail)=>{
-            parsed_product = JSON.parse(eachproductdetail);
-            sum += parsed_product["qty"];
-            document.querySelector(".cart").innerHTML += `<p>${parsed_product['product_name_cart']} <span class="price">qty: ${parsed_product['qty']}</span></p>`
-                    
-    });
-    document.querySelector(".cartnum").innerHTML = `<i class="fa fa-shopping-cart"></i> <b>${sum}</b>`
-}};
-
-
-
     function CleanStorage(){
         localStorage.clear();
-        if(localStorage.length == 0){
-            document.querySelector(".continue").innerHTML = '';
-            document.querySelector(".continue").innerHTML = `Your order has been placed. Please check your email. <a href="{% url 'homepage' %}">Continue Shopping</a>`;
-        }
         //document.getElementById("submit-button").disabled = true;
 
         
     }
 
-    displayProduct();
+    CleanStorage();
 
 </script>
