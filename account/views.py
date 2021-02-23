@@ -47,6 +47,7 @@ def Login(request):
     html_form = render_to_string('account/partial_user_login.html',context,request=request)
     return JsonResponse({'html_form':html_form})
 
+
 def Logout(request):
     auth.logout(request)
     return redirect('homepage')

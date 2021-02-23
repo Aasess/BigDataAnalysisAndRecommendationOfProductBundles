@@ -9,6 +9,7 @@ let productkey = []
 let prevScrollpos = window.pageYOffset;
 let cart = document.querySelector(".cart");
 let availablecartaddbtn = document.querySelector(".cartaddbtn");
+let availablecartaddbtnsearch = document.querySelector(".cartaddbtnsearch");
 //let availablecartaddbtnmain = document.querySelector(".cartaddbtnmain");
 let recommendcartaddbtn = document.querySelector(".recommendcartaddbtn");
 let qtyAll = ""
@@ -270,7 +271,7 @@ function displayProduct(){
     document.querySelector(".cart-count").innerText = sum;
     qtyAll = document.querySelectorAll("input[type=number]");
     deletebtns = document.querySelectorAll(".deleteproduct");
-    document.querySelector(".cart-footer").innerHTML = '<a class="btn btn-danger btn-lg btn-block checkout-btn ">CHECKOUT </a>'
+    //document.querySelector(".cart-footer").innerHTML = '<a class="btn btn-danger btn-lg btn-block checkout-btn " href="{% url "checkout" %}">CHECKOUT </a>'
     }
     else{
         
@@ -320,6 +321,7 @@ document.addEventListener("click",(e)=>{
 
 //store to local storage when cart btns are clicked
 availablecartaddbtn.addEventListener("click",()=>{
+    console.log("hello")
     CartLocalStorage("availableproductname");
 });
 
@@ -370,7 +372,7 @@ document.getElementById("search").addEventListener('change', ()=>{
     mylist=document.getElementById("datalist");
 
     //store to local storage when cart btns are clicked
-    availablecartaddbtn.addEventListener("click",()=>{
+    availablecartaddbtnsearch.addEventListener("click",()=>{
     CartLocalStorageFromSearchTab(mylist.options[0].value);
 });
 });
