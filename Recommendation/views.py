@@ -35,6 +35,7 @@ def productsearch(request):
         else:
             Num_of_recom = "8"
         product_name = request.GET["product_name"]
+        print(product_name);
         recommendproducts = recomendation.getRecommend(product_name, int(Num_of_recom))
     
         context ={

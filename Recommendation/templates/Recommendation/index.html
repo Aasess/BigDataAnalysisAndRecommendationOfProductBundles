@@ -79,7 +79,7 @@
                 <div class="col-lg-7 col-md-12 mr-5 box-shadow">
                     <p class="mt-2 pl-2">Search for any products and we will provide the best recommendation for you.</p>
                     <hr>
-                    <form method="GET" autocomplete="off" action="{% url 'productsearch' %}">
+                    <form method="GET" autocomplete="off" action="{% url 'productsearch' %}" id="form">
                          <div class="form-group">
                             <label for="formControlRange" class="text-secondary">Select number of recommendations: <output id="rangeoutput">5</output></label>
                             <input type="range" class="form-control-range" id="range" min="1" max="15" value="5" name="recom">
@@ -91,7 +91,7 @@
                             {% endif %}
                            <datalist id="datalist"></datalist>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-outline-success mt-2"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
+                        <button type="submit" class="btn btn-sm btn-outline-success mt-2 cartaddbtn"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to basket</button>
                         
                     </form>
                 </div>
