@@ -53,4 +53,3 @@ def productsearch(request):
         }
         return render(request,'Recommendation/index.html',context)
     
-
