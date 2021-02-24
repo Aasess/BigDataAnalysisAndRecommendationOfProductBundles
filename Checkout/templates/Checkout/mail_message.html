@@ -18,16 +18,14 @@
                     <th style="border-bottom: 1px solid #ddd;">Product</th>
                     <th style="border-bottom: 1px solid #ddd;">Quantity</th>
                 </tr>
+                {% for item,qty in product_name_details %}
                 <tr>
-                    <td>apple</td>
-                    <td>5</td>
+                    <td>{{ item }}</td>
+                    <td>{{ qty }}</td>
                 </tr>
-                <tr>
-                    <td>banana</td>
-                    <td>4</td>
-                </tr>
+                {% endfor %}
             </table>
-            <strong>Total:Rs. 500</strong>
+            <strong>Total: {{ total }}</strong>
 
             <hr>
             <strong style="color: #1AAD">Billing Address</strong>

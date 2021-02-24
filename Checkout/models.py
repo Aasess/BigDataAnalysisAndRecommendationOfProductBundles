@@ -15,5 +15,6 @@ class Order(models.Model):
 class Product(models.Model):
     # order = models.ForeignKey(Order,on_delete=models.CASCADE) #one order can have many items
     order = models.OneToOneField(Order,on_delete=models.CASCADE,related_name="product")
-    product_D = models.JSONField()
+    product_D = models.TextField()
+    total = models.CharField(max_length =200)
 
