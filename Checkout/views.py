@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from ProductBundleRecommendation.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
-from .models import Order
-
+from .models import Order,Product
+from django.template.loader import render_to_string
 # Create your views here.
 @login_required(login_url='/account/login/')
 def checkout(request):
@@ -17,7 +17,10 @@ def checkout(request):
         print(email)
         obj = Order(name=name,email=email,address=address,city=city,province=province,zipcode=zipcode)
         obj.save();
-        send_mail("Your Instacart order has received!", "Thank you for your order", EMAIL_HOST_USER, [email],fail_silently=False)
+
+        context = {'order_id':obj.id,'username':name,'date':obj.date,'address':address,'city':city,'province':province}
+        html_message = render_to_string('Checkout/mail_message.html',context)
+        send_mail("Your Instacart order has received!", "Thank you for your order", EMAIL_HOST_USER, [email],html_message=html_message,fail_silently=False)
         return render(request,'Checkout/order_success.html',{'recepient':email,'order_id':obj.id })
     else:
         
