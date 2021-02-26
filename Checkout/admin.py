@@ -10,4 +10,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ("id","name", "email", "address","city","province","zipcode","date")
 
 
-admin.site.register(Product)
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ("id","order_id","product_D","total")
