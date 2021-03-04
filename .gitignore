@@ -8,3 +8,4 @@ db.sqlite3-journal
 .idea/
 .ipynb_checkpoints
 statics
+local_settings.py
